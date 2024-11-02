@@ -3,12 +3,6 @@
 Package
 ========================================================================================================================
 """
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-import logging
-logging.getLogger('tensorflow').setLevel(logging.ERROR)
-
 from typing import Literal
 
 import numpy as np
@@ -159,8 +153,8 @@ Main Function
 """
 if __name__ == '__main__':
 
-    file_path = "C:/Users/user/Desktop/Data_Temp/Data_Other/MR.nii"
-    save_path = "C:/Users/user/Desktop/Data_Temp/Data_Other/HM.nii"
-    temp_path = "C:/Users/user/Desktop/Data_Temp/Data_Other/TP.nii"
+    file_path = ""
+    save_path = ""
+    temp_path = ""
 
     otsu_algorithm(mode = 'MR', file_path = file_path, save_path = save_path, temp_path = temp_path, overlay = False)
