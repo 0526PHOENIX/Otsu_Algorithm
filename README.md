@@ -1,4 +1,4 @@
-# Otsu_Algorithm
+# Otsu Algorithm: Specific to Medical Image
 
 Otsu Algorithm for 3D Medical Image.
 
