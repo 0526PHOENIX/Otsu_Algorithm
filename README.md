@@ -1,5 +1,7 @@
 # Otsu_Algorithm
 
+Otsu Algorithm for 3D Medical Image.
+
 
 ## ***def otsu_algorithm()***
     
