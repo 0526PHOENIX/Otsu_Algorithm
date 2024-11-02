@@ -120,7 +120,7 @@ def otsu_algorithm(mode: str | Literal['CT', 'MR', 'PET'],
             hmask[:, :, j] = ndimage.binary_closing(hmask[:, :, j], np.ones((struct, struct)))
         
         # Narrow Down Element Structure
-        struct -= 16
+        struct = int(struct / 3 // 2) * 2 + 1
 
         # Element-Wise Or Operation of Refined Mask with Original Mask
         hmask |= mask
@@ -149,8 +149,8 @@ Main Function
 """
 if __name__ == '__main__':
 
-    file_path = "C:/Users/user/Desktop/Otsu_Algorithm/Data/CT23.nii"
-    save_path = "C:/Users/user/Desktop/Otsu_Algorithm/Data/HM.nii"
-    temp_path = "C:/Users/user/Desktop/Otsu_Algorithm/Data/TP.nii"
+    file_path = ""
+    save_path = ""
+    temp_path = ""
 
     otsu_algorithm(mode = 'CT', file_path = file_path, save_path = save_path, temp_path = temp_path, overlay = False)
