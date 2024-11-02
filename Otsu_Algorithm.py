@@ -16,11 +16,11 @@ from scipy import ndimage
 Otsu Algorithm
 ========================================================================================================================
 """
-def otsu_algorithm(mode: str | Literal['CT', 'MR', 'PET'], 
-          file_path: str = None, 
-          save_path: str = None, 
-          temp_path: str = None, 
-          overlay: bool = False) -> None:
+def otsu_algorithm(mode: str | Literal['CT', 'MR', 'PET'],
+                   file_path: str = None,
+                   save_path: str = None,
+                   temp_path: str = None,
+                   overlay: bool = False) -> None:
 
     print()
     print('===========================================================================================================')
@@ -112,23 +112,19 @@ def otsu_algorithm(mode: str | Literal['CT', 'MR', 'PET'],
     mask = hmask.copy()
 
     # Closing Element Structure
-    struct = int(hmask.shape[0] / 6 // 2) * 2 + 1
+    struct = int(hmask.shape[0] / 4 // 2) * 2 + 1
     while struct >= 3:
 
         # Fill Holes in Mask (Along Z-Axis)
         for j in range(hmask.shape[2]):
             hmask[:, :, j] = ndimage.binary_closing(hmask[:, :, j], np.ones((struct, struct)))
-        for j in range(hmask.shape[1]):
-            hmask[:, j, :] = ndimage.binary_closing(hmask[:, j, :], np.ones((struct, struct)))
-        for j in range(hmask.shape[0]):
-            hmask[j, :, :] = ndimage.binary_closing(hmask[j, :, :], np.ones((struct, struct)))
         
         # Narrow Down Element Structure
-        struct -= 4
+        struct -= 16
 
         # Element-Wise Or Operation of Refined Mask with Original Mask
         hmask |= mask
-    
+
     # Apply Mask
     image = np.where(hmask, image, air_value)
     hmask = np.where(hmask, 1, 0)
@@ -153,8 +149,8 @@ Main Function
 """
 if __name__ == '__main__':
 
-    file_path = ""
-    save_path = ""
-    temp_path = ""
+    file_path = "C:/Users/user/Desktop/Otsu_Algorithm/Data/CT23.nii"
+    save_path = "C:/Users/user/Desktop/Otsu_Algorithm/Data/HM.nii"
+    temp_path = "C:/Users/user/Desktop/Otsu_Algorithm/Data/TP.nii"
 
-    otsu_algorithm(mode = 'MR', file_path = file_path, save_path = save_path, temp_path = temp_path, overlay = False)
+    otsu_algorithm(mode = 'CT', file_path = file_path, save_path = save_path, temp_path = temp_path, overlay = False)
